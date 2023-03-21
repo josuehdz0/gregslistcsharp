@@ -36,4 +36,28 @@ public class HousesRepository
     House house = _db.Query<House>(sql, new { id }).FirstOrDefault();
     return house;
   }
+
+
+  internal House Create(House houseData)
+  {
+    string sql = @"
+    INSERT INTO houses
+    (rooms, bathrooms, year, price, description, imgUrl)
+    VALUES
+    (@rooms, @bathrooms, @year, @price, @description, @imgUrl);
+    SELECT LAST_INSERT_ID();
+    ";
+    int id = _db.ExecuteScalar<int>(sql, houseData);
+    houseData.Id = id;
+    return houseData;
+  }
+
+  internal bool Remove(int id)
+  {
+    string sql = @"
+    DELETE FROM houses WHERE id = @id;
+    ";
+    int rows = _db.Execute(sql, new { id });
+    return rows == 1;
+  }
 }

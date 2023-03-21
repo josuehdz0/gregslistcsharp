@@ -45,4 +45,37 @@ public class HousesController : ControllerBase
       return BadRequest(e.Message);
     }
   }
+
+
+  [HttpPost]
+
+  public ActionResult<House> Create([FromBody] House houseData)
+  {
+    try
+    {
+      House house = housesService.Create(houseData);
+      return Ok(house);
+    }
+    catch (System.Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
+  [HttpDelete]
+
+  public ActionResult<string> Remove(int id)
+  {
+    try
+    {
+      string message = housesService.Remove(id);
+      return Ok(message);
+    }
+    catch (System.Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
+
 }
