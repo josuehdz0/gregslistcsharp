@@ -77,5 +77,20 @@ public class HousesController : ControllerBase
     }
   }
 
+  [HttpPut("{id}")]
+  public ActionResult<House> Update(int id, [FromBody] House updateData)
+  {
+    try
+    {
+      updateData.Id = id;
+      House house = housesService.Update(updateData);
+      return Ok(house);
+    }
+    catch (System.Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
 
 }

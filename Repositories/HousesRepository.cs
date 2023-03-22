@@ -60,4 +60,26 @@ public class HousesRepository
     int rows = _db.Execute(sql, new { id });
     return rows == 1;
   }
+
+  internal int Update(House update)
+  {
+
+    string sql = @"
+    UPDATE houses
+    SET
+    rooms = @rooms,
+    bathrooms = @bathrooms,
+    year = @year,
+    price = @price,
+    imgUrl = @imgUrl,
+    description = @description
+    WHERE id = @id;
+    ";
+    int rows = _db.Execute(sql, update);
+    return rows;
+  }
+
+
+
+
 }
